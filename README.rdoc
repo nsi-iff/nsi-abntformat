@@ -4,6 +4,8 @@ Installing:
 
 - gem install nsi-abntformat
 
+- More info: https://rubygems.org/gems/nsi-abntformat
+
 == Copyright
 
 Copyright (c) 2012 Núcleo de Pesquisa em Sistemas de Informação. See LICENSE.txt for
