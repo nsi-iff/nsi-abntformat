@@ -1,0 +1,11 @@
+= nsi-abntformat
+
+Installing:
+
+- gem install nsi-abntformat
+
+== Copyright
+
+Copyright (c) 2012 Núcleo de Pesquisa em Sistemas de Informação. See LICENSE.txt for
+further details.
+
