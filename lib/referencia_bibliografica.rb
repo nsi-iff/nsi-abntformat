@@ -2,7 +2,11 @@
 
 require 'unicode'
 
-class ReferenciaBibliografica
+class ReferenciaBibliografica < String
+  def initialize(documento)
+    gerar(documento)
+  end
+
   def _monta_nome(autores)
     lista_autores = autores.split(';')
     lista_autores.each_index do |i|
@@ -123,6 +127,16 @@ class ReferenciaBibliografica
     "#{autores} #{titulo}. #{instituicao}."
   end
 
+  def _gerar_subtitulo(documento)
+    _gerar_opcional(documento.subtitulo)
+  end
+
+  def _gerar_opcional(text)
+    text || ''
+  end
+
+  private
+
   def gerar(documento)
     conversores = {
       'trabalho de conclusão'        => :_referencia_trabalho_conclusao,
@@ -134,14 +148,6 @@ class ReferenciaBibliografica
       'imagem'                       => :_referencia_imagem,
       'objetos de aprendizagem'      => :_referencia_objetos_de_aprendizagem,
       'outros conteúdos'             => :_referencia_outros_conteudos }
-    public_method(conversores[documento.tipo]).call documento
-  end
-
-  def _gerar_subtitulo(documento)
-    _gerar_opcional(documento.subtitulo)
-  end
-
-  def _gerar_opcional(text)
-    text || ''
+    replace(public_method(conversores[documento.tipo]).call documento)
   end
 end
