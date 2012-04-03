@@ -10,20 +10,20 @@ module ReferenciaBibliografica
   private
 
   def referencia_objetos_de_aprendizagem
-    "#{monta_nome} #{titulo}. #{instituicao}."
+    "#{autores_abnt} #{titulo}. #{instituicao}."
   end
 
   def referencia_imagem
-    "#{monta_nome} #{titulo}. #{instituicao}, #{local}."
+    "#{autores_abnt} #{titulo}. #{instituicao}, #{local}."
   end
 
   def referencia_relatorio_tecnico_cientifico
-    "#{monta_nome} #{titulo}. #{local_publicacao}: #{instituicao}, "\
+    "#{autores_abnt} #{titulo}. #{local_publicacao}: #{instituicao}, "\
     "#{ano_publicacao}. #{numero_paginas} p."
   end
 
   def referencia_livro
-    "#{monta_nome} #{titulo}: #{gerar_subtitulo}. #{traducao}#{edicao}" \
+    "#{autores_abnt} #{titulo}: #{gerar_subtitulo}. #{traducao}#{edicao}" \
     "#{local_publicacao}: #{editora}, #{ano_publicacao}. #{numero_paginas} p."
   end
 
@@ -33,27 +33,27 @@ module ReferenciaBibliografica
   end
 
   def referencia_artigo_periodico
-    "#{monta_nome} #{titulo}#{gerar_subtitulo}. #{nome_periodico}, "\
+    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{nome_periodico}, "\
     "#{local_publicacao}, v. #{volume}, n. #{fasciculo}, "\
     "p. #{pagina_inicial}-#{pagina_final}, #{data_publicacao}."
   end
 
   def referencia_artigo_anais_evento
-    "#{monta_nome} #{titulo}.#{gerar_subtitulo} In: #{nome_evento}, " \
+    "#{autores_abnt} #{titulo}.#{gerar_subtitulo} In: #{nome_evento}, " \
     "#{numero_evento}., #{ano_evento}, #{local_evento}. " \
     "#{titulo_anais}. #{local_publicacao}: #{editora}, " \
     "#{ano_publicacao}. P. #{pagina_inicial}-#{pagina_final}."
   end
 
   def referencia_outros_conteudos
-    "#{monta_nome} #{titulo}. #{instituicao}."
+    "#{autores_abnt} #{titulo}. #{instituicao}."
   end
 
   def gerar_subtitulo
     subtitulo || ''
   end
 
-  def monta_nome
+  def autores_abnt
     lista_autores = autores.split(';')
     lista_autores.each_index do |i|
       nome_autor = lista_autores[i].split(' ')
@@ -68,7 +68,7 @@ module ReferenciaBibliografica
   end
 
   def referencia_trabalho_conclusao
-    "#{monta_nome} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
+    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
     "#{total_folhas} f. #{tipo_trabalho} - #{instituicao}, #{local_defesa}."
   end
 
