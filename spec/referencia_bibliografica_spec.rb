@@ -89,23 +89,21 @@ describe ReferenciaBibliografica do
       ' UFRGS/FACED, 1975-')
   end
 
-  xit "gerando referencia de livro" do
-    livro = mock(:livro)
-    livro.stub('tipo') { 'livro' }
-    livro.stub('autores') { 'Marcos Antônio Azevedo; '\
-    'Vinícios Nogueira Almeida Guerra' }
-    livro.stub('titulo') { 'Mania de bater' }
-    livro.stub('subtitulo') { 'a punição corporal doméstica de crianças '\
-    'e adolescentes no Brasil' }
-    livro.stub('traducao') { nil }
-    livro.stub('edicao') { nil }
-    livro.stub('local_publicacao') { 'São Paulo' }
-    livro.stub('editora') { 'Iglu' }
-    livro.stub('ano_publicacao') { '2001' }
-    livro.stub('numero_paginas') { '386' }
+  it "gerando referencia de livro" do
+    subject.stub('tipo') { 'livro' }
+    subject.stub('autores') { 'Marcos Antônio Azevedo; '\
+                              'Vinícios Nogueira Almeida Guerra' }
+    subject.stub('titulo') { 'Mania de bater' }
+    subject.stub('subtitulo') { 'a punição corporal doméstica de crianças '\
+                                'e adolescentes no Brasil' }
+    subject.stub('traducao') { nil }
+    subject.stub('edicao') { nil }
+    subject.stub('local_publicacao') { 'São Paulo' }
+    subject.stub('editora') { 'Iglu' }
+    subject.stub('ano_publicacao') { '2001' }
+    subject.stub('numero_paginas') { '386' }
 
-    referencia_livro = ReferenciaBibliografica.new(livro)
-    referencia_livro.should == (
+    subject.referencia_abnt.should == (
       'AZEVEDO, M. A.; GUERRA, V. N. A. '\
       'Mania de bater: a punição corporal doméstica de crianças e '\
       'adolescentes no Brasil. São Paulo: Iglu, 2001. 386 p.')
