@@ -33,12 +33,12 @@ module ReferenciaBibliografica
   end
 
   def referencia_livro
-    "#{autores_abnt} #{titulo}: #{gerar_subtitulo}. #{traducao}#{edicao}" \
+    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{traducao}#{edicao}"\
     "#{local_publicacao}: #{editora}, #{ano_publicacao}. #{numero_paginas} p."
   end
 
   def referencia_periodico_tecnico_cientifico
-    "#{titulo}. #{local_publicacao}: #{editora}, " \
+    "#{titulo}. #{local_publicacao}: #{editora}, "\
     "#{ano_primeiro_volume}-#{ano_ultimo_volume}"
   end
 
@@ -49,9 +49,9 @@ module ReferenciaBibliografica
   end
 
   def referencia_artigo_anais_evento
-    "#{autores_abnt} #{titulo}.#{gerar_subtitulo} In: #{nome_evento}, " \
-    "#{numero_evento}., #{ano_evento}, #{local_evento}. " \
-    "#{titulo_anais}. #{local_publicacao}: #{editora}, " \
+    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. In: #{nome_evento}, "\
+    "#{numero_evento}., #{ano_evento}, #{local_evento}. "\
+    "#{titulo_anais}. #{local_publicacao}: #{editora}, "\
     "#{ano_publicacao}. P. #{pagina_inicial}-#{pagina_final}."
   end
 
@@ -59,8 +59,14 @@ module ReferenciaBibliografica
     "#{autores_abnt} #{titulo}. #{instituicao}."
   end
 
+  def referencia_trabalho_conclusao
+    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
+    "#{total_folhas} f. #{tipo_trabalho} - #{instituicao}, #{local_defesa}."
+  end
+
   def gerar_subtitulo
-    subtitulo || ''
+    subtitulo ? ": #{subtitulo}" : ''
+    # subtitulo || ''
   end
 
   def autores_abnt
@@ -70,16 +76,11 @@ module ReferenciaBibliografica
       nome_autor = autor.split(' ')
       nome_autor.delete('')
       nome_abnt = Unicode.upcase(nome_autor.pop + ',')
-      nome_autor.each do |letra|
-        nome_abnt += ' ' + letra[0] + '.'
+      nome_autor.each do |palavra|
+        nome_abnt += ' ' + palavra[0] + '.'
       end
       lista_autores_abnt << nome_abnt
     end
     lista_autores_abnt * "; "
-  end
-
-  def referencia_trabalho_conclusao
-    "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
-    "#{total_folhas} f. #{tipo_trabalho} - #{instituicao}, #{local_defesa}."
   end
 end
