@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "nsi-abntformat"
-  s.version = "0.2.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oswaldo Ferreira"]
-  s.date = "2012-03-30"
+  s.date = "2012-04-03"
   s.description = "Transforms objects containing documentation metadata in bibliographic references on ABNT format"
   s.email = "oswluizf@gmail.com"
   s.extra_rdoc_files = [
@@ -20,13 +20,15 @@ Gem::Specification.new do |s|
     ".document",
     "CONTRIBUTORS",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
     "lib/referencia_bibliografica.rb",
-    "test/referencia_bibliografica_spec.rb",
-    "test/spec_helper.rb"
+    "nsi-abntformat.gemspec",
+    "spec/referencia_bibliografica_spec.rb",
+    "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/oswluiz/nsi-abntformat"
   s.licenses = ["MIT"]
