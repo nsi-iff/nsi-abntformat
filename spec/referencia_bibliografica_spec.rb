@@ -127,17 +127,14 @@ describe ReferenciaBibliografica do
       '38 p.')
   end
 
-  xit "gerando referencia de imagem" do
-    imagem = mock(:imagem)
+  it "gerando referencia de imagem" do
+    subject.stub('tipo') { 'imagem' }
+    subject.stub('autores') { 'Alberto Gomes Pereira; Ricardo Silva' }
+    subject.stub('titulo') { 'As crianças da indonésia' }
+    subject.stub('instituicao') { 'Instituto Federal Fluminense' }
+    subject.stub('local') { 'Campos dos Goytacazes' }
 
-    imagem.stub('tipo') { 'imagem' }
-    imagem.stub('autores') { 'Alberto Gomes Pereira; Ricardo Silva' }
-    imagem.stub('titulo') { 'As crianças da indonésia' }
-    imagem.stub('instituicao') { 'Instituto Federal Fluminense' }
-    imagem.stub('local') { 'Campos dos Goytacazes' }
-
-    referencia_imagem = ReferenciaBibliografica.new(imagem)
-    referencia_imagem.should == ('PEREIRA, A. G.; SILVA, R. As '\
+    subject.referencia_abnt.should == ('PEREIRA, A. G.; SILVA, R. As '\
                                   'crianças da indonésia. Instituto Federal '\
                                   'Fluminense, Campos dos Goytacazes.')
   end

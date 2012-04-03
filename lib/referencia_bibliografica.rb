@@ -3,14 +3,6 @@
 require 'unicode'
 
 module ReferenciaBibliografica
-  def _referencia_imagem(imagem)
-    autores = _monta_nome(imagem.autores)
-    titulo = imagem.titulo
-    instituicao = imagem.instituicao
-    local = imagem.local
-    "#{autores} #{titulo}. #{instituicao}, #{local}."
-  end
-
   def _referencia_objetos_de_aprendizagem(objetos_de_aprendizagem)
     autores = _monta_nome(objetos_de_aprendizagem.autores)
     titulo = objetos_de_aprendizagem.titulo
@@ -23,6 +15,11 @@ module ReferenciaBibliografica
   end
 
   private
+
+  def referencia_imagem
+    "#{monta_nome} #{titulo}. #{instituicao}, #{local}."
+  end
+
   def referencia_relatorio_tecnico_cientifico
     "#{monta_nome} #{titulo}. #{local_publicacao}: #{instituicao}, "\
     "#{ano_publicacao}. #{numero_paginas} p."
@@ -86,7 +83,7 @@ module ReferenciaBibliografica
       'periodico tecnico cientifico' => :referencia_periodico_tecnico_cientifico,
       'livro'                        => :referencia_livro,
       'relatorio tecnico cientifico' => :referencia_relatorio_tecnico_cientifico,
-      'imagem'                       => :_referencia_imagem,
+      'imagem'                       => :referencia_imagem,
       'objetos de aprendizagem'      => :_referencia_objetos_de_aprendizagem,
       'outros conteúdos'             => :referencia_outros_conteudos }
     __send__(conversores[self.tipo])
