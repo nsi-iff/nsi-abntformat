@@ -3,22 +3,6 @@
 require 'unicode'
 
 module ReferenciaBibliografica
-  def _referencia_artigo_periodico(artigo_periodico)
-    autores = _monta_nome(artigo_periodico.autores)
-    titulo = artigo_periodico.titulo
-    subtitulo = _gerar_subtitulo(artigo_periodico)
-    nome = artigo_periodico.nome_periodico
-    local = artigo_periodico.local_publicacao
-    volume = artigo_periodico.volume
-    fasciculo = artigo_periodico.fasciculo
-    pagina_inicial = artigo_periodico.pagina_inicial
-    pagina_final = artigo_periodico.pagina_final
-    data = artigo_periodico.data_publicacao
-    "#{autores} #{titulo}#{subtitulo}. #{nome}, #{local}, " \
-    "v. #{volume}, n. #{fasciculo}, " \
-    "p. #{pagina_inicial}-#{pagina_final}, #{data}."
-  end
-
   def _referencia_periodico_tecnico_cientifico(periodico_tecnico_cientifico)
     titulo = periodico_tecnico_cientifico.titulo
     local= periodico_tecnico_cientifico.local_publicacao
@@ -75,6 +59,12 @@ module ReferenciaBibliografica
 
   private
 
+  def referencia_artigo_periodico
+    "#{monta_nome} #{titulo}#{gerar_subtitulo}. #{nome_periodico}, "\
+    "#{local_publicacao}, v. #{volume}, n. #{fasciculo}, "\
+    "p. #{pagina_inicial}-#{pagina_final}, #{data_publicacao}."
+  end
+
   def referencia_artigo_anais_evento
     "#{monta_nome} #{titulo}.#{gerar_subtitulo} In: #{nome_evento}, " \
     "#{numero_evento}., #{ano_evento}, #{local_evento}. " \
@@ -113,7 +103,7 @@ module ReferenciaBibliografica
     conversores = {
       'trabalho de conclusão'        => :referencia_trabalho_conclusao,
       'artigo de anais de eventos'   => :referencia_artigo_anais_evento,
-      'artigo de periodico'          => :_referencia_artigo_periodico,
+      'artigo de periodico'          => :referencia_artigo_periodico,
       'periodico tecnico cientifico' => :_referencia_periodico_tecnico_cientifico,
       'livro'                        => :_referencia_livro,
       'relatorio tecnico cientifico' => :_referencia_relatorio_tecnico_cientifico,

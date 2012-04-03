@@ -58,22 +58,20 @@ describe ReferenciaBibliografica do
       'Cruz do Sul. Anais. Santa Cruz do Sul: EDUNISC, 1998. P. 15-30.')
   end
 
-  xit "gerando referencia de artigo de periodico" do
-    artigo_periodico = mock(:artigo_periodico)
-    artigo_periodico.stub('tipo') { 'artigo de periodico' }
-    artigo_periodico.stub('autores') { 'Demerval Saviani' }
-    artigo_periodico.stub('titulo') { 'A Universidade e a Problemática da Educação e Cultura' }
-    artigo_periodico.stub('subtitulo') { nil }
-    artigo_periodico.stub('nome_periodico') { 'Educação Brasileira' }
-    artigo_periodico.stub('local_publicacao') { 'Brasília' }
-    artigo_periodico.stub('volume') { '1' }
-    artigo_periodico.stub('fasciculo') { '3' }
-    artigo_periodico.stub('pagina_inicial')  { '35' }
-    artigo_periodico.stub('pagina_final') { '58' }
-    artigo_periodico.stub('data_publicacao') { '1979' }
+  it "gerando referencia de artigo de periodico" do
+    subject.stub('tipo') { 'artigo de periodico' }
+    subject.stub('autores') { 'Demerval Saviani' }
+    subject.stub('titulo') { 'A Universidade e a Problemática da Educação e Cultura' }
+    subject.stub('subtitulo') { nil }
+    subject.stub('nome_periodico') { 'Educação Brasileira' }
+    subject.stub('local_publicacao') { 'Brasília' }
+    subject.stub('volume') { '1' }
+    subject.stub('fasciculo') { '3' }
+    subject.stub('pagina_inicial')  { '35' }
+    subject.stub('pagina_final') { '58' }
+    subject.stub('data_publicacao') { '1979' }
 
-    referencia_artigo_periodico = ReferenciaBibliografica.new(artigo_periodico)
-    referencia_artigo_periodico.should == (
+    subject.referencia_abnt.should == (
       "SAVIANI, D. A Universidade e a Problemática da Educação e Cultura."\
       " Educação Brasileira, Brasília, v. 1, n. 3, p. 35-58, 1979.")
   end
