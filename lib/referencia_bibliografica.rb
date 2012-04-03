@@ -4,7 +4,17 @@ require 'unicode'
 
 module ReferenciaBibliografica
   def referencia_abnt
-    gerar
+    tipos = {
+      'trabalho de conclusão'        => :referencia_trabalho_conclusao,
+      'artigo de anais de eventos'   => :referencia_artigo_anais_evento,
+      'artigo de periodico'          => :referencia_artigo_periodico,
+      'periodico tecnico cientifico' => :referencia_periodico_tecnico_cientifico,
+      'livro'                        => :referencia_livro,
+      'relatorio tecnico cientifico' => :referencia_relatorio_tecnico_cientifico,
+      'imagem'                       => :referencia_imagem,
+      'objetos de aprendizagem'      => :referencia_objetos_de_aprendizagem,
+      'outros conteúdos'             => :referencia_outros_conteudos }
+    __send__(tipos[self.tipo])
   end
 
   private
@@ -54,35 +64,22 @@ module ReferenciaBibliografica
   end
 
   def autores_abnt
+    lista_autores_abnt = []
     lista_autores = autores.split(';')
-    lista_autores.each_index do |i|
-      nome_autor = lista_autores[i].split(' ')
-      nome_autor.delete('') if nome_autor.include? ('')
-      nome_abnt = Unicode.upcase nome_autor.pop + ','
-      nome_autor.each_index do |j|
-        nome_abnt += ' ' + nome_autor[j][0] + '.'
+    lista_autores.each do |autor|
+      nome_autor = autor.split(' ')
+      nome_autor.delete('')
+      nome_abnt = Unicode.upcase(nome_autor.pop + ',')
+      nome_autor.each do |letra|
+        nome_abnt += ' ' + letra[0] + '.'
       end
-      lista_autores[i] = nome_abnt
+      lista_autores_abnt << nome_abnt
     end
-    lista_autores * "; "
+    lista_autores_abnt * "; "
   end
 
   def referencia_trabalho_conclusao
     "#{autores_abnt} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
     "#{total_folhas} f. #{tipo_trabalho} - #{instituicao}, #{local_defesa}."
-  end
-
-  def gerar
-    conversores = {
-      'trabalho de conclusão'        => :referencia_trabalho_conclusao,
-      'artigo de anais de eventos'   => :referencia_artigo_anais_evento,
-      'artigo de periodico'          => :referencia_artigo_periodico,
-      'periodico tecnico cientifico' => :referencia_periodico_tecnico_cientifico,
-      'livro'                        => :referencia_livro,
-      'relatorio tecnico cientifico' => :referencia_relatorio_tecnico_cientifico,
-      'imagem'                       => :referencia_imagem,
-      'objetos de aprendizagem'      => :referencia_objetos_de_aprendizagem,
-      'outros conteúdos'             => :referencia_outros_conteudos }
-    __send__(conversores[self.tipo])
   end
 end

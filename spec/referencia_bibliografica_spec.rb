@@ -8,12 +8,6 @@ describe ReferenciaBibliografica do
 
   subject { Documento.new }
 
-  xit "converte nome completo em citação" do
-    referencia = ReferenciaBibliografica.new
-    referencia._monta_nome('Ruhan Ferreira Almeida; Carlos Souza Teste').should \
-      == ("ALMEIDA, R. F.; TESTE, C. S.")
-  end
-
   it "trabalho de conclusão" do
     subject.stub('tipo') { 'trabalho de conclusão' }
     subject.stub('autores') { 'Ian Fantucci' }
