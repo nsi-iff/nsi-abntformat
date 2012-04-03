@@ -3,17 +3,6 @@
 require 'unicode'
 
 module ReferenciaBibliografica
-  def _referencia_relatorio_tecnico_cientifico(relatorio_tecnico_cientifico)
-    autores = _monta_nome(relatorio_tecnico_cientifico.autores)
-    titulo = relatorio_tecnico_cientifico.titulo
-    local = relatorio_tecnico_cientifico.local_publicacao
-    instituicao = relatorio_tecnico_cientifico.instituicao
-    ano = relatorio_tecnico_cientifico.ano_publicacao
-    paginas = relatorio_tecnico_cientifico.numero_paginas
-    "#{autores} #{titulo}. #{local}: #{instituicao}, #{ano}. " \
-    "#{paginas} p."
-  end
-
   def _referencia_imagem(imagem)
     autores = _monta_nome(imagem.autores)
     titulo = imagem.titulo
@@ -34,6 +23,10 @@ module ReferenciaBibliografica
   end
 
   private
+  def referencia_relatorio_tecnico_cientifico
+    "#{monta_nome} #{titulo}. #{local_publicacao}: #{instituicao}, "\
+    "#{ano_publicacao}. #{numero_paginas} p."
+  end
 
   def referencia_livro
     "#{monta_nome} #{titulo}: #{gerar_subtitulo}. #{traducao}#{edicao}" \
@@ -92,7 +85,7 @@ module ReferenciaBibliografica
       'artigo de periodico'          => :referencia_artigo_periodico,
       'periodico tecnico cientifico' => :referencia_periodico_tecnico_cientifico,
       'livro'                        => :referencia_livro,
-      'relatorio tecnico cientifico' => :_referencia_relatorio_tecnico_cientifico,
+      'relatorio tecnico cientifico' => :referencia_relatorio_tecnico_cientifico,
       'imagem'                       => :_referencia_imagem,
       'objetos de aprendizagem'      => :_referencia_objetos_de_aprendizagem,
       'outros conteúdos'             => :referencia_outros_conteudos }

@@ -109,21 +109,19 @@ describe ReferenciaBibliografica do
       'adolescentes no Brasil. São Paulo: Iglu, 2001. 386 p.')
   end
 
-  xit "gerando referencia de relatorio tecnico cientifico" do
-    relatorio_tecnico_cientifico = mock(:relatorio_tecnico_cientifico)
-    relatorio_tecnico_cientifico.stub('tipo') { 'relatorio tecnico cientifico' }
-    relatorio_tecnico_cientifico.stub('autores') { 'Ubiraci Espinelli Souza; '\
-                                                   'Silvio Burratino Melhado' }
-    relatorio_tecnico_cientifico.stub('titulo') { 'Subsídios para a avaliação'\
-                                                  ' do custo de mão-de-obra na'\
-                                                  ' construção civil' }
-    relatorio_tecnico_cientifico.stub('local_publicacao') { 'São Paulo' }
-    relatorio_tecnico_cientifico.stub('instituicao') { 'EPUSP' }
-    relatorio_tecnico_cientifico.stub('ano_publicacao') { '1991' }
-    relatorio_tecnico_cientifico.stub('numero_paginas') { '38' }
+  it "gerando referencia de relatorio tecnico cientifico" do
+    subject.stub('tipo') { 'relatorio tecnico cientifico' }
+    subject.stub('autores') { 'Ubiraci Espinelli Souza; '\
+                              'Silvio Burratino Melhado' }
+    subject.stub('titulo') { 'Subsídios para a avaliação'\
+                             ' do custo de mão-de-obra na'\
+                             ' construção civil' }
+    subject.stub('local_publicacao') { 'São Paulo' }
+    subject.stub('instituicao') { 'EPUSP' }
+    subject.stub('ano_publicacao') { '1991' }
+    subject.stub('numero_paginas') { '38' }
 
-    referencia_relatorio_cientifico = ReferenciaBibliografica.new(relatorio_tecnico_cientifico)
-    referencia_relatorio_cientifico.should == (
+    subject.referencia_abnt.should == (
       'SOUZA, U. E.; MELHADO, S. B. Subsídios para a avaliação do '\
       'custo de mão-de-obra na construção civil. São Paulo: EPUSP, 1991. '\
       '38 p.')
