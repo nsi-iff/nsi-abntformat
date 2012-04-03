@@ -2,38 +2,7 @@
 
 require 'unicode'
 
-class ReferenciaBibliografica < String
-  def initialize(documento)
-    gerar(documento)
-  end
-
-  def _monta_nome(autores)
-    lista_autores = autores.split(';')
-    lista_autores.each_index do |i|
-      nome_autor = lista_autores[i].split(' ')
-      nome_autor.delete('') if nome_autor.include? ('')
-      nome_abnt = Unicode.upcase nome_autor.pop + ','
-      nome_autor.each_index do |j|
-        nome_abnt += ' ' + nome_autor[j][0] + '.'
-      end
-      lista_autores[i] = nome_abnt
-    end
-    lista_autores * "; "
-  end
-
-  def _referencia_trabalho_conclusao(trabalho_conclusao)
-    autores = _monta_nome(trabalho_conclusao.autores)
-    titulo =  trabalho_conclusao.titulo
-    subtitulo = _gerar_subtitulo(trabalho_conclusao)
-    defesa = trabalho_conclusao.data_defesa
-    folhas = trabalho_conclusao.total_folhas
-    tipo = trabalho_conclusao.tipo_trabalho
-    instituicao = trabalho_conclusao.instituicao
-    local = trabalho_conclusao.local_defesa
-     "#{autores} #{titulo}#{subtitulo}. #{defesa}. "\
-     "#{folhas} f. #{tipo} - #{instituicao}, #{local}."
-  end
-
+module ReferenciaBibliografica
   def _referencia_artigo_anais_evento(artigo_anais_evento)
     autores = _monta_nome(artigo_anais_evento.autores)
     titulo = artigo_anais_evento.titulo
@@ -120,26 +89,42 @@ class ReferenciaBibliografica < String
     "#{autores} #{titulo}. #{instituicao}."
   end
 
-  def _referencia_outros_conteudos(outros_conteudos)
-    autores = _monta_nome(outros_conteudos.autores)
-    titulo = outros_conteudos.titulo
-    instituicao = outros_conteudos.instituicao
-    "#{autores} #{titulo}. #{instituicao}."
-  end
-
-  def _gerar_subtitulo(documento)
-    _gerar_opcional(documento.subtitulo)
-  end
-
-  def _gerar_opcional(text)
-    text || ''
+  def referencia_abnt
+    gerar
   end
 
   private
 
-  def gerar(documento)
+  def referencia_outros_conteudos
+    "#{monta_nome} #{titulo}. #{instituicao}."
+  end
+
+  def gerar_subtitulo
+    subtitulo || ''
+  end
+
+  def monta_nome
+    lista_autores = autores.split(';')
+    lista_autores.each_index do |i|
+      nome_autor = lista_autores[i].split(' ')
+      nome_autor.delete('') if nome_autor.include? ('')
+      nome_abnt = Unicode.upcase nome_autor.pop + ','
+      nome_autor.each_index do |j|
+        nome_abnt += ' ' + nome_autor[j][0] + '.'
+      end
+      lista_autores[i] = nome_abnt
+    end
+    lista_autores * "; "
+  end
+
+  def referencia_trabalho_conclusao
+    "#{monta_nome} #{titulo}#{gerar_subtitulo}. #{data_defesa}. "\
+    "#{total_folhas} f. #{tipo_trabalho} - #{instituicao}, #{local_defesa}."
+  end
+
+  def gerar
     conversores = {
-      'trabalho de conclusão'        => :_referencia_trabalho_conclusao,
+      'trabalho de conclusão'        => :referencia_trabalho_conclusao,
       'artigo de anais de eventos'   => :_referencia_artigo_anais_evento,
       'artigo de periodico'          => :_referencia_artigo_periodico,
       'periodico tecnico cientifico' => :_referencia_periodico_tecnico_cientifico,
@@ -147,7 +132,7 @@ class ReferenciaBibliografica < String
       'relatorio tecnico cientifico' => :_referencia_relatorio_tecnico_cientifico,
       'imagem'                       => :_referencia_imagem,
       'objetos de aprendizagem'      => :_referencia_objetos_de_aprendizagem,
-      'outros conteúdos'             => :_referencia_outros_conteudos }
-    replace(public_method(conversores[documento.tipo]).call documento)
+      'outros conteúdos'             => :referencia_outros_conteudos }
+    __send__(conversores[self.tipo])
   end
 end
