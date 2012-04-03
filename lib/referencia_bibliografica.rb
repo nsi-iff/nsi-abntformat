@@ -3,26 +3,6 @@
 require 'unicode'
 
 module ReferenciaBibliografica
-  def _referencia_artigo_anais_evento(artigo_anais_evento)
-    autores = _monta_nome(artigo_anais_evento.autores)
-    titulo = artigo_anais_evento.titulo
-    subtitulo = _gerar_subtitulo(artigo_anais_evento)
-    nome_evento = artigo_anais_evento.nome_evento
-    numero_evento = artigo_anais_evento.numero_evento
-    ano_evento = artigo_anais_evento.ano_evento
-    local_evento = artigo_anais_evento.local_evento
-    titulo_anais = artigo_anais_evento.titulo_anais
-    local_publicacao = artigo_anais_evento.local_publicacao
-    editora = artigo_anais_evento.editora
-    ano_publicacao = artigo_anais_evento.ano_publicacao
-    pagina_inicial = artigo_anais_evento.pagina_inicial
-    pagina_final = artigo_anais_evento.pagina_final
-    "#{autores} #{titulo}.#{subtitulo} In: #{nome_evento}, " \
-    "#{numero_evento}., #{ano_evento}, #{local_evento}. " \
-    "#{titulo_anais}. #{local_publicacao}: #{editora}, " \
-    "#{ano_publicacao}. P. #{pagina_inicial}-#{pagina_final}."
-  end
-
   def _referencia_artigo_periodico(artigo_periodico)
     autores = _monta_nome(artigo_periodico.autores)
     titulo = artigo_periodico.titulo
@@ -95,6 +75,13 @@ module ReferenciaBibliografica
 
   private
 
+  def referencia_artigo_anais_evento
+    "#{monta_nome} #{titulo}.#{gerar_subtitulo} In: #{nome_evento}, " \
+    "#{numero_evento}., #{ano_evento}, #{local_evento}. " \
+    "#{titulo_anais}. #{local_publicacao}: #{editora}, " \
+    "#{ano_publicacao}. P. #{pagina_inicial}-#{pagina_final}."
+  end
+
   def referencia_outros_conteudos
     "#{monta_nome} #{titulo}. #{instituicao}."
   end
@@ -125,7 +112,7 @@ module ReferenciaBibliografica
   def gerar
     conversores = {
       'trabalho de conclusão'        => :referencia_trabalho_conclusao,
-      'artigo de anais de eventos'   => :_referencia_artigo_anais_evento,
+      'artigo de anais de eventos'   => :referencia_artigo_anais_evento,
       'artigo de periodico'          => :_referencia_artigo_periodico,
       'periodico tecnico cientifico' => :_referencia_periodico_tecnico_cientifico,
       'livro'                        => :_referencia_livro,

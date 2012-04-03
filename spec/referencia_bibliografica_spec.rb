@@ -35,26 +35,24 @@ describe ReferenciaBibliografica do
       'Instituto de Psicologia, Universidade de São Paulo, São Paulo.')
   end
 
-  xit "gerando referencia para artigos de anais de eventos" do
-    artigo_anais_evento = mock(:trabalho_conclusao)
-    artigo_anais_evento.stub('tipo') { 'artigo de anais de eventos' }
-    artigo_anais_evento.stub('autores') { 'Antônio Fernandes Bueno Moreira' }
-    artigo_anais_evento.stub('titulo') { 'Multiculturalismo, Currículo e '\
-                                         'Formação de Professores' }
-    artigo_anais_evento.stub('subtitulo') { nil }
-    artigo_anais_evento.stub('nome_evento') { 'SEMINÁRIO DE EDUCAÇÃO BÁSICA' }
-    artigo_anais_evento.stub('numero_evento') { '2' }
-    artigo_anais_evento.stub('ano_evento') { '1998' }
-    artigo_anais_evento.stub('local_evento') { 'Santa Cruz do Sul' }
-    artigo_anais_evento.stub('titulo_anais') { 'Anais' }
-    artigo_anais_evento.stub('local_publicacao') { 'Santa Cruz do Sul' }
-    artigo_anais_evento.stub('editora') { 'EDUNISC' }
-    artigo_anais_evento.stub('ano_publicacao') { '1998' }
-    artigo_anais_evento.stub('pagina_inicial') { '15' }
-    artigo_anais_evento.stub('pagina_final') { '30' }
+  it "gerando referencia para artigos de anais de eventos" do
+    subject.stub('tipo') { 'artigo de anais de eventos' }
+    subject.stub('autores') { 'Antônio Fernandes Bueno Moreira' }
+    subject.stub('titulo') { 'Multiculturalismo, Currículo e '\
+                             'Formação de Professores' }
+    subject.stub('subtitulo') { nil }
+    subject.stub('nome_evento') { 'SEMINÁRIO DE EDUCAÇÃO BÁSICA' }
+    subject.stub('numero_evento') { '2' }
+    subject.stub('ano_evento') { '1998' }
+    subject.stub('local_evento') { 'Santa Cruz do Sul' }
+    subject.stub('titulo_anais') { 'Anais' }
+    subject.stub('local_publicacao') { 'Santa Cruz do Sul' }
+    subject.stub('editora') { 'EDUNISC' }
+    subject.stub('ano_publicacao') { '1998' }
+    subject.stub('pagina_inicial') { '15' }
+    subject.stub('pagina_final') { '30' }
 
-    referencia_anais_evento = ReferenciaBibliografica.new(artigo_anais_evento)
-    referencia_anais_evento.should == (
+    subject.referencia_abnt.should == (
       'MOREIRA, A. F. B. Multiculturalismo, Currículo e Formação de '\
       'Professores. In: SEMINÁRIO DE EDUCAÇÃO BÁSICA, 2., 1998, Santa '\
       'Cruz do Sul. Anais. Santa Cruz do Sul: EDUNISC, 1998. P. 15-30.')
