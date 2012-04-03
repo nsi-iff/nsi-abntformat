@@ -139,15 +139,13 @@ describe ReferenciaBibliografica do
                                   'Fluminense, Campos dos Goytacazes.')
   end
 
-  xit "gerando referencia de objetos de aprendizagem" do
-    objetos_de_aprendizagem = mock(:objetos_de_aprendizagem)
-    objetos_de_aprendizagem.stub('tipo') { 'objetos de aprendizagem' }
-    objetos_de_aprendizagem.stub('autores') { 'Ariosvaldo Gomes' }
-    objetos_de_aprendizagem.stub('titulo') { 'Viver é aprender' }
-    objetos_de_aprendizagem.stub('instituicao') { 'Instituto Federal Fluminense' }
+  it "gerando referencia de objetos de aprendizagem" do
+    subject.stub('tipo') { 'objetos de aprendizagem' }
+    subject.stub('autores') { 'Ariosvaldo Gomes' }
+    subject.stub('titulo') { 'Viver é aprender' }
+    subject.stub('instituicao') { 'Instituto Federal Fluminense' }
 
-    referencia_aprendizagem = ReferenciaBibliografica.new(objetos_de_aprendizagem)
-    referencia_aprendizagem.should == ('GOMES, A. Viver é aprender. '\
+    subject.referencia_abnt.should == ('GOMES, A. Viver é aprender. '\
                                        'Instituto Federal Fluminense.')
   end
 
