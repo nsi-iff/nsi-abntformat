@@ -76,17 +76,15 @@ describe ReferenciaBibliografica do
       " Educação Brasileira, Brasília, v. 1, n. 3, p. 35-58, 1979.")
   end
 
-  xit "gerando referencia de periodico tecnico cientifico" do
-    periodico_tecnico_cientifico = mock(:periodico_tecnico_cientifico)
-    periodico_tecnico_cientifico.stub('tipo') { 'periodico tecnico cientifico' }
-    periodico_tecnico_cientifico.stub('titulo') { 'EDUCAÇÃO & REALIDADE' }
-    periodico_tecnico_cientifico.stub('local_publicacao') { 'Porto Alegre' }
-    periodico_tecnico_cientifico.stub('editora') { 'UFRGS/FACED' }
-    periodico_tecnico_cientifico.stub('ano_primeiro_volume') { '1975' }
-    periodico_tecnico_cientifico.stub('ano_ultimo_volume') { nil }
+  it "gerando referencia de periodico tecnico cientifico" do
+    subject.stub('tipo') { 'periodico tecnico cientifico' }
+    subject.stub('titulo') { 'EDUCAÇÃO & REALIDADE' }
+    subject.stub('local_publicacao') { 'Porto Alegre' }
+    subject.stub('editora') { 'UFRGS/FACED' }
+    subject.stub('ano_primeiro_volume') { '1975' }
+    subject.stub('ano_ultimo_volume') { nil }
 
-    referencia_tecnico_cientifico = ReferenciaBibliografica.new(periodico_tecnico_cientifico)
-    referencia_tecnico_cientifico.should == (
+    subject.referencia_abnt.should == (
       'EDUCAÇÃO & REALIDADE. Porto Alegre:'\
       ' UFRGS/FACED, 1975-')
   end

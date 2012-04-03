@@ -3,16 +3,6 @@
 require 'unicode'
 
 module ReferenciaBibliografica
-  def _referencia_periodico_tecnico_cientifico(periodico_tecnico_cientifico)
-    titulo = periodico_tecnico_cientifico.titulo
-    local= periodico_tecnico_cientifico.local_publicacao
-    editora = periodico_tecnico_cientifico.editora
-    ano_primeiro = periodico_tecnico_cientifico.ano_primeiro_volume
-    ano_ultimo = periodico_tecnico_cientifico.ano_ultimo_volume
-    "#{titulo}. #{local}: #{editora}, " \
-    "#{ano_primeiro}-#{ano_ultimo}"
-  end
-
   def _referencia_livro(livro)
     autores = _monta_nome(livro.autores)
     titulo = livro.titulo
@@ -59,6 +49,11 @@ module ReferenciaBibliografica
 
   private
 
+  def referencia_periodico_tecnico_cientifico
+    "#{titulo}. #{local_publicacao}: #{editora}, " \
+    "#{ano_primeiro_volume}-#{ano_ultimo_volume}"
+  end
+
   def referencia_artigo_periodico
     "#{monta_nome} #{titulo}#{gerar_subtitulo}. #{nome_periodico}, "\
     "#{local_publicacao}, v. #{volume}, n. #{fasciculo}, "\
@@ -104,7 +99,7 @@ module ReferenciaBibliografica
       'trabalho de conclusão'        => :referencia_trabalho_conclusao,
       'artigo de anais de eventos'   => :referencia_artigo_anais_evento,
       'artigo de periodico'          => :referencia_artigo_periodico,
-      'periodico tecnico cientifico' => :_referencia_periodico_tecnico_cientifico,
+      'periodico tecnico cientifico' => :referencia_periodico_tecnico_cientifico,
       'livro'                        => :_referencia_livro,
       'relatorio tecnico cientifico' => :_referencia_relatorio_tecnico_cientifico,
       'imagem'                       => :_referencia_imagem,
