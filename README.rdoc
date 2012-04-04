@@ -1,13 +1,40 @@
 = nsi-abntformat
 
-Installing:
+== Como instalar:
 
-- gem install nsi-abntformat
+  gem install nsi-abntformat
 
-- More info: https://rubygems.org/gems/nsi-abntformat
+- Mais informações: https://rubygems.org/gems/nsi-abntformat
 
+== Como usar
+
+No exemplo abaixo, é gerada uma referência bibliográfica para trabalho de conclusão:
+
+  require "referencia_bibliografica"
+
+  class Documento
+    include ReferenciaBibliografica
+
+    attr_accessor :tipo, :autores, :titulo, :subtitulo, :data_defesa,
+                  :total_folhas, :tipo_trabalho, :instituicao, :local_defesa
+  end
+
+  documento = Documento.new
+  documento.tipo = 'trabalho de conclusão'
+  documento.autores = 'Linus Torvalds'
+  documento.titulo = 'Git'
+  documento.subtitulo = 'Destruindo o Passado de Trevas'
+  documento.data_defesa = 2008
+  documento.total_folhas = 120
+  documento.tipo_trabalho = 'Tese (Doutorado em Computacao)'
+  documento.instituicao = 'Instituto Federal Fluminense'
+  documento.local_defesa = 'Campos dos Goytacazes/RJ'
+
+  documento.referencia_abnt
+
+  => 'TORVALDS, L. Git: Destruindo o Passado de Trevas. 2008. 120 f. Tese (Doutorado em Computacao) - Instituto Federal Fluminense, Campos dos Goytacazes/RJ.'
+Copyright
 == Copyright
 
 Copyright (c) 2012 Núcleo de Pesquisa em Sistemas de Informação. See LICENSE.txt for
 further details.
-
